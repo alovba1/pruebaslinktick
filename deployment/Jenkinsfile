@@ -1,0 +1,84 @@
+pipeline {
+    agent any
+    tools {
+    gradle '7.5.1'
+    }
+    stages {
+      stage('Clone Repository') {
+        steps {
+             //  git branch: 'develop', credentialsId: 'b1', url: 'https://.com/directorio/directorio/_git/proyecto'
+               }
+      }
+        stage('JAVA Version') {
+        steps {
+              withGradle {
+                       sh 'java --version'
+                    }
+              }
+      }
+       stage('Test Unit Project') {
+              steps {
+                    withGradle {
+                           sh 'gradle Test'
+                          }
+                    }
+        }
+/*
+       stage('Quality Sacn Project') {
+         environment {
+          scannerHome = tool 'SonarQubeScanner'
+          }
+            steps {
+                  withSonarQubeEnv('SonarQubeServer') {
+                    sh "gradle sonarqube"
+                  }
+            }
+       }
+
+        stage('Quality Gates Project') {
+            steps {
+                  timeout(time:2,unit:'MINUTES') {
+                   waitForQualityGate abortPipeline:true
+                  }
+            }
+       }
+
+        stage("Code Coverage and Quality Reports") {
+            steps {
+                  sh "gradle jacocoMergeReport"
+                  publishHTML (target: [
+                  reportDir: 'build/reports/jacocoMergedReport/html',
+                  reportFiles: 'index.html',
+                  reportName: "Report Jacoco Coverage"
+                  ])
+                  sh "gradle jacocoTestCoverageVerification"
+                  }
+       }
+*/
+      stage('build Gradle Project') {
+        steps {
+              withGradle {
+                       sh 'gradle clean build'
+                    }
+              }
+      }
+
+      stage('Build Image Docker') {
+        steps {
+            script {
+          //     dockerImage = docker.build('.aa/aa/proyecto:v0', '-f deployment/Dockerfile .')
+              }
+        }
+      }
+       stage('Push Image Docker') {
+        steps {
+            script {
+              // withDockerRegistry(credentialsId: 'aaa', url:'http://aa.aa.aa/') {
+               //dockerImage.push()
+             }
+            }
+        }
+       }
+
+    }
+}

@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+dependencies {
+
+    implementation project(':model')
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    // Dependencia de Mockito
+    testImplementation 'org.mockito:mockito-core:5.8.0'
+
+    // Para usar Mockito con Spring Boot
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.8.0'
+
+    // Dependencia para pruebas con JUnit 5 (Jupiter)
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+
+    // Si usas Spring Boot, incluye esto para tests de Spring
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
+test {
+    useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        xml.required = true
+        csv.required = false
+        html.required = true
+    }
+}
