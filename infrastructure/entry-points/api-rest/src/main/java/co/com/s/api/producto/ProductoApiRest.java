@@ -16,6 +16,7 @@ import static co.com.s.api.constant.Constant.URL_BASE;
 @RequiredArgsConstructor
 public class ProductoApiRest {
 
+
     private final ProductoUseCase productoUseCase;
 
     @GetMapping
