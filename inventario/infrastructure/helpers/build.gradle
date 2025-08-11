@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.lintic.infrastructure.helpers'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':model')
+    // Dependencias comunes
+    implementation 'org.springframework.boot:spring-boot-starter'
+
+    // Si usas utilidades como Apache Commons
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+
+    // Puedes agregar otras dependencias necesarias aquí
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+}
